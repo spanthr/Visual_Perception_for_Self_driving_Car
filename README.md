@@ -15,11 +15,11 @@ Decompose Projection matrix and generate Depth map
  
 Result:
 
-![](Images/Picture6.png)
+![](Images/Picture7.png)
  
 Distance to collision
 
-![](Images/Picture1.png)
+![](Images/Picture8.png)
 
 closest_point_depth 29.091
 
@@ -39,7 +39,7 @@ In this assignment, you will:
  
 3. Movement Visualization
 
-![](Images/Picture8.png)
+![](Images/Picturemovement_vis.png)
  
 Camera location in point 1 is: 
  [[Location X][Location y][Location Z]]= [[ 0.28437721] [-0.1307709 ][ 0.94975185]]
@@ -54,11 +54,14 @@ In this assignment, you will:
 •	Use the filtered 2D object detection results to determine how far obstacles are from the self-driving car.
 Launch the Jupyter Notebook to begin
 
- 
+ ![](Images/Picture9.png)
 
- 
+![](Images/Picture10.png)
 
- 
+![](Images/Picture11.png)
+ ![](Images/Picture12.png)
+![](Images/Picture13.png)
+
 
  
 
@@ -66,11 +69,15 @@ Launch the Jupyter Notebook to begin
  
 
 # TASK 1 1 - Drivable Space Estimation Using Semantic Segmentation Output
+
+ ![](Images/Picture14.png)
+ 
 Your first task is to implement drivable space estimation in 3D. You are given the output of a semantic segmentation neural network, the camera calibration matrix K, as well as the depth per pixel.
 1.1 - Estimating the x, y, and z coordinates of every pixel in the image:
 You will be using the equations learned in module 1 to compute the x, y, and z coordinates of every pixel in the image. As a reminder, the equations to get the required 3D coordinates are:
  
-Note: Make sure you are on frame 0 for the rest of this assessment. You will use the rest of the frames for testing after the assessment is done.
+  ![](Images/Picture15.png)
+  
 
     Computes the x, and y coordinates of every pixel in the image using the depth map and the calibration matrix.
 
@@ -82,12 +89,13 @@ Note: Make sure you are on frame 0 for the rest of this assessment. You will use
     x -- tensor of dimension (H, W) containing the x coordinates of every pixel in the camera coordinate frame.
     y -- tensor of dimension (H, W) containing the y coordinates of every pixel in the camera coordinate frame.
 
+ ![](Images/Picture16.png)
  
 # TASK 1.2 1.2 - Estimating The Ground Plane Using RANSAC:
 In the context of self-driving cars, drivable space includes any space that the car is physically capable of traversing in 3D. The task of estimating the drivable space is equivalent to estimating pixels belonging to the ground plane in the scene. For the next exercise, you will use RANSAC to estimate the ground plane in the 3D camera coordinate frame from the x,y, and z coordinates estimated above.
 The first step is to process the semantic segmentation output to extract the relevant pixels belonging to the class you want consider as ground. For this assessment, that class is the road class with a mapping index of 7. To extract the x,y,z coordinates of the road, run the following cell:
 
-
+ ![](Images/Picture17.png)
 
  
 Implement RANSAC for plane estimation. Here are the 6 steps:
@@ -99,11 +107,15 @@ Implement RANSAC for plane estimation. Here are the 6 steps:
 6.	Recompute and return a plane model using all inliers in the final inlier set.
 Useful functions: np.random.choice(), compute_plane(), dist_to_plane().
 
+  ![](Images/Picture18.png)
  
+ ![](Images/Picture19.png)
  
+  
+ 
+The visualization below only shows where the self-driving car can physically travel. The obstacles such as the SUV to the left of the image, can be seen as dark pixels in our visualization:
 
- 
-The above visualization only shows where the self-driving car can physically travel. The obstacles such as the SUV to the left of the image, can be seen as dark pixels in our visualization:
+![](Images/Picture20.png)
 
  The self-driving car still needs to perform lane estimation to know where it is legally allowed to drive. Once you are comfortable with the estimated drivable space, continue the assessment to estimate the lane where the car can drive.
 
@@ -115,10 +127,14 @@ Exercise: Estimate lane line proposals using OpenCv functions. Here are the 3 st
 1.	Create an image containing the semantic segmentation pixels belonging to categories relevant to the lane boundaries, similar to what we have done previously for the road plane. For this assessment, these pixels have the value of 6 and 8 in the neural network segmentation output.  
  
 
+
 2.	Perform edge detection on the derived lane boundary image.
 3.	Perform line estimation on the output of edge detection.
 Useful functions: cv2.Canny(), cv2.HoughLinesP(), np.squeeze().
 
+Result 
+
+ ![](Images/Picture21.png)
 
 # TASK 2.2 - Merging and Filtering Lane Lines:
 The second subtask to perform the estimation of the current lane boundary is to merge redundant lines, and filter out any horizontal lines apparent in the image. Merging redundant lines can be solved through grouping lines with similar slope and intercept. Horizontal lines can be filtered out through slope thresholding.
@@ -129,7 +145,7 @@ Exercise: Post-process the output of the function estimate_lane_lines to merge s
 4.	Merge all lines in clusters using mean averaging.
 
 
-
+![](Images/Picture22.png)
 
 
  
@@ -141,7 +157,7 @@ Your final task for this assessment is to use 2D object detection output to dete
 
 Detections have the format [category, x_min, y_min, x_max, y_max, score]. The Category is a string signifying the classification of the bounding box such as 'Car', 'Pedestrian' or 'Cyclist'. [x_min,y_min] are the coordinates of the top left corner, and [x_max,y_max] are the coordinates of the bottom right corners of the objects. The score signifies the output of the softmax from the neural network.
 
- 
+  ![](Images/Picture23.png)
 
 # Task 3.1 - Filtering Out Unreliable Detections:
 The first thing you can notice is that an wrong detection occures on the right side of the image. What is interestingis that this wrong detection has a high output score of 0.76 for being a car. Furthermore, two bounding boxes are assigned to the vehicle to the left of the image, both with a very high score, greater than 0.9. This behaviour is expected from a high precision, low recall object detector. To solve this problem, the output of the semantic segmentation network has to be used to eliminate unreliable detections.
@@ -150,6 +166,9 @@ Exercise: Eliminate unreliable detections using the output of semantic segmentat
 2.	Devide the computed number of pixels by the area of the bounding box (total number of pixels).
 3.	If the ratio is greater than a threshold keep the detection. Else, remove the detection from the list of detections.
  
+  ![](Images/Picture24.png)
+
+
 
 # Task 3.2 - Estimating Minimum Distance To Impact:
 The final task for this assessment is to estimate the minimum distance to every bounding box in the input detections. This can be performed by simply taking the minimum distance from the pixels in the bounding box to the camera center.
@@ -163,17 +182,26 @@ Minimum distance to impact is: 8.51
 
 Finally:
 
+ ![](Images/Picture25.png)
+
  
 
 
 # Validation:
 Image
+ ![](Images/Picture26.png)
  
 # Part 1
- 
+
+  ![](Images/Picture27.png)
+  
 # Part 2
+
+  ![](Images/Picture28.png)
  
 # Part 3
+
+ ![](Images/Picture29.png)
  
 The output of semantic segmentation can be used to estimate drivable space. - Classical computer vision can be used to find lane boundaries. - The output of semantic segmentation can be used to filter out unreliable output from object detection.
 
@@ -181,14 +209,7 @@ The output of semantic segmentation can be used to estimate drivable space. - Cl
 
 
 ## License
-License
-Copyright (C) 2020 Chinmay Rathod.
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/
 License
 Copyright (C) 2020 Shaurya Panthri.
 
