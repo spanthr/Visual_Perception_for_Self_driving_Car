@@ -2,7 +2,7 @@
 
 # WEEK 1 Results Applying Stereo Depth to a Driving Scenario
  
- ![](Images/Image/Picture1.png)
+ ![](Images/Picture1.png)
  
 Depth Estimation by computing Disparity
 Disparity Map
