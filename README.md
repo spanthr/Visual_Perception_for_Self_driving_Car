@@ -1,6 +1,6 @@
 # Visual_Perception_for_Self_driving_Car
 
-# WEEK 1 Results Applying Stereo Depth to a Driving Scenario
+## WEEK 1 Results Applying Stereo Depth to a Driving Scenario
  
  ![](Images/Picture1.png)
  
@@ -44,7 +44,7 @@ In this assignment, you will:
 Camera location in point 1 is: 
  [[Location X][Location y][Location Z]]= [[ 0.28437721] [-0.1307709 ][ 0.94975185]]
 
-## Final Assignment
+### Final Assignment
 
 Welcome to the final assignment in this course. In this assignment, you will learn how to use the material so far to extract useful scene information to allow self-driving cars to traverse their environment safely and reliably.
 In this assignment, you will:
@@ -68,7 +68,7 @@ Launch the Jupyter Notebook to begin
  
  
 
-# TASK 1 1 - Drivable Space Estimation Using Semantic Segmentation Output
+### TASK 1 - Drivable Space Estimation Using Semantic Segmentation Output
 
  ![](Images/Picture14.png)
  
@@ -91,7 +91,7 @@ You will be using the equations learned in module 1 to compute the x, y, and z c
 
  ![](Images/Picture16.png)
  
-# TASK 1.2 1.2 - Estimating The Ground Plane Using RANSAC:
+### TASK 1.2 - Estimating The Ground Plane Using RANSAC:
 In the context of self-driving cars, drivable space includes any space that the car is physically capable of traversing in 3D. The task of estimating the drivable space is equivalent to estimating pixels belonging to the ground plane in the scene. For the next exercise, you will use RANSAC to estimate the ground plane in the 3D camera coordinate frame from the x,y, and z coordinates estimated above.
 The first step is to process the semantic segmentation output to extract the relevant pixels belonging to the class you want consider as ground. For this assessment, that class is the road class with a mapping index of 7. To extract the x,y,z coordinates of the road, run the following cell:
 
@@ -119,7 +119,7 @@ The visualization below only shows where the self-driving car can physically tra
 
  The self-driving car still needs to perform lane estimation to know where it is legally allowed to drive. Once you are comfortable with the estimated drivable space, continue the assessment to estimate the lane where the car can drive.
 
-# Task 2 - Lane Estimation Using The Semantic Segmentation Output
+### Task 2 - Lane Estimation Using The Semantic Segmentation Output
 Your second task for this assessment is to use the output of semantic segmentation to estimate the lane boundaries of the current lane the self-driving car is using. This task can be separated to two subtasks, lane line estimation, and post-processing through horizontal line filtering and similar line merging.
 2.1 Estimating Lane Boundary Proposals:
 The first step to perform this task is to estimate any line that qualifies as a lane boundary using the output from semantic segmentation. We call these lines 'proposals'.
@@ -136,7 +136,7 @@ Result
 
  ![](Images/Picture21.png)
 
-# TASK 2.2 - Merging and Filtering Lane Lines:
+### TASK 2.2 - Merging and Filtering Lane Lines:
 The second subtask to perform the estimation of the current lane boundary is to merge redundant lines, and filter out any horizontal lines apparent in the image. Merging redundant lines can be solved through grouping lines with similar slope and intercept. Horizontal lines can be filtered out through slope thresholding.
 Exercise: Post-process the output of the function estimate_lane_lines to merge similar lines, and filter out horizontal lines using the slope and the intercept. The three steps are:
 1.	Get every line's slope and intercept using the function provided.
@@ -150,7 +150,7 @@ Exercise: Post-process the output of the function estimate_lane_lines to merge s
 
  
 
-# Task 3 - Computing Minimum Distance To Impact Using The Output of 2D Object Detection.
+### Task 3 - Computing Minimum Distance To Impact Using The Output of 2D Object Detection.
 Your final task for this assessment is to use 2D object detection output to determine the minimum distance to impact with objects in the scene. However, the task is complicated by the fact that the provided 2D detections are from a high recall, low precision 2D object detector. You will first be using the semantic segmentation output to determine which bounding boxes are valid. Then, you will compute the minimum distance to impact using the remaining bounding boxes and the depth image. Let us begin with a visualization of the output detection for our current frame. For visualization, you use the provided dataset handler function vis_object_detection as follows:
 
  
@@ -159,7 +159,7 @@ Detections have the format [category, x_min, y_min, x_max, y_max, score]. The Ca
 
   ![](Images/Picture23.png)
 
-# Task 3.1 - Filtering Out Unreliable Detections:
+### Task 3.1 - Filtering Out Unreliable Detections:
 The first thing you can notice is that an wrong detection occures on the right side of the image. What is interestingis that this wrong detection has a high output score of 0.76 for being a car. Furthermore, two bounding boxes are assigned to the vehicle to the left of the image, both with a very high score, greater than 0.9. This behaviour is expected from a high precision, low recall object detector. To solve this problem, the output of the semantic segmentation network has to be used to eliminate unreliable detections.
 Exercise: Eliminate unreliable detections using the output of semantic segmentation. The three steps are:
 1.	For each detection, compute how many pixels in the bounding box belong to the category predicted by the neural network.
@@ -170,7 +170,7 @@ Exercise: Eliminate unreliable detections using the output of semantic segmentat
 
 
 
-# Task 3.2 - Estimating Minimum Distance To Impact:
+### Task 3.2 - Estimating Minimum Distance To Impact:
 The final task for this assessment is to estimate the minimum distance to every bounding box in the input detections. This can be performed by simply taking the minimum distance from the pixels in the bounding box to the camera center.
 Exercise: Compute the minimum distance to impact between every object remaining after filtering and the self-driving car. The two steps are:
 1.	Compute the distance to the camera center using the x,y,z arrays from part I. This can be done according to the equation: distance= (x2^2+y2^2+z2^2) ^0.5.
@@ -191,15 +191,15 @@ Finally:
 Image
  ![](Images/Picture26.png)
  
-# Part 1
+### Task 1
 
   ![](Images/Picture27.png)
   
-# Part 2
+### Task 2
 
   ![](Images/Picture28.png)
  
-# Part 3
+### Task 3
 
  ![](Images/Picture29.png)
  
