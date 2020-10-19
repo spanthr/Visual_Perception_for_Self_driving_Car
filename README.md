@@ -6,13 +6,21 @@
  
 Depth Estimation by computing Disparity
 Disparity Map
- 
+
+![](Images/Picture2.png)
+
 Decompose Projection matrix and generate Depth map
+
+![](Images/Picture3.png)
  
 Result:
+
+![](Images/Picture6.png)
  
 Distance to collision
- 
+
+![](Images/Picture1.png)
+
 closest_point_depth 29.091
 
 ## WEEK 2 Visual Odometry for Localization in Autonomous Driving
@@ -22,10 +30,16 @@ In this assignment, you will:
 •	Use the found matches to estimate the camera motion between subsequent photographs.
 •	Use the estimated camera motion to build the vehicle trajectory.
 1 - Feature Extraction
- 
+
+![](Images/Picture4.png)
+
 2 - Feature Matching
+
+![](Images/Picture5.png)
  
 3. Movement Visualization
+
+![](Images/Picture8.png)
  
 Camera location in point 1 is: 
  [[Location X][Location y][Location Z]]= [[ 0.28437721] [-0.1307709 ][ 0.94975185]]
