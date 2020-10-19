@@ -44,7 +44,7 @@ In this assignment, you will:
 Camera location in point 1 is: 
  [[Location X][Location y][Location Z]]= [[ 0.28437721] [-0.1307709 ][ 0.94975185]]
 
-### Final Assignment
+# Final Project
 
 Welcome to the final assignment in this course. In this assignment, you will learn how to use the material so far to extract useful scene information to allow self-driving cars to traverse their environment safely and reliably.
 In this assignment, you will:
@@ -188,7 +188,9 @@ Finally:
 
 
 # Validation:
+
 Image
+
  ![](Images/Picture26.png)
  
 ### Task 1
