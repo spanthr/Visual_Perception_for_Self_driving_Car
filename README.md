@@ -39,7 +39,7 @@ In this assignment, you will:
  
 3. Movement Visualization
 
-![](Images/PictureMovement_vis.png)
+![](Images/Picturemovement_vis.png)
  
 Camera location in point 1 is: 
  [[Location X][Location y][Location Z]]= [[ 0.28437721] [-0.1307709 ][ 0.94975185]]
